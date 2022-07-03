@@ -1,0 +1,16 @@
+{
+    "extends": [
+        ":ignoreModulesAndTests",
+        "group:all",
+        "workarounds:all"
+    ],
+    "dependencyDashboard": true,
+    "timezone": "America/Los_Angeles",
+    "semanticCommitType": "build",
+    "semanticCommits": "enabled",
+    "prHourlyLimit": 0,
+    "rangeStrategy": "pin",
+    "schedule": [
+        "before 12pm on Sunday"
+    ]
+}
