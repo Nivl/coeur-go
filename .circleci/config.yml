@@ -19,9 +19,11 @@ jobs:
       - run: task install-deps
       - run: go mod download
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
             - project
+            - go
+            - bin
 
   lint:
     executor: go
