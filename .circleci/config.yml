@@ -29,7 +29,6 @@ jobs:
           at: .
       - run: task lint
 
-
   test:
     executor: go
     steps:
@@ -45,5 +44,17 @@ workflows:
   test-and-publish:
     jobs:
       - setup
-      - lint
-      - test
+      - lint:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+
+
+
+
+
+
+
+
