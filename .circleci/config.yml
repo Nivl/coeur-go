@@ -21,7 +21,6 @@ jobs:
     steps:
       - checkout
       - restore-cache
-      - run: go install github.com/go-task/task/v3/cmd/task@latest
       - run: task install-deps
       - run: go mod download
       - save_cache:
@@ -36,13 +35,13 @@ jobs:
           root: ~/
           paths:
             - project
+            - go
 
   lint:
     executor: go
     steps:
       - attach_workspace:
           at: ~/
-      - restore-cache
       - run: task lint
 
   test:
@@ -50,7 +49,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - restore-cache
       - run: |
           mkdir -p /tmp/test-reports
           gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
