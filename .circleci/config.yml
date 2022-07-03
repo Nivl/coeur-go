@@ -15,28 +15,33 @@ jobs:
     executor: go
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - go-mod-v4-{{ checksum "go.sum" }}
       - run: go install github.com/go-task/task/v3/cmd/task@latest
       - run: task install-deps
       - run: go mod download
-      - persist_to_workspace:
-          root: .
+      - save_cache:
+          key: go-mod-v4-{{ checksum "go.sum" }}
           paths:
-            - project
-            - go
-            - bin
+            - "/go/pkg/mod"
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
 
   lint:
     executor: go
     steps:
       - attach_workspace:
-          at: ~/ 
+          at: ~/project
       - run: task lint
 
   test:
     executor: go
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/project
       - run: |
           mkdir -p /tmp/test-reports
           gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
