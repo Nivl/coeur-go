@@ -3,7 +3,7 @@ version: 2.1
 executors:
   go:
     docker:
-      - image: circleci/golang
+      - image: cimg/golang
 
 commands:
   install-deps:
@@ -19,14 +19,16 @@ jobs:
       - run: task install-deps
       - run: go mod download
       - persist_to_workspace:
-          root: .
-          paths: [project]
+          root: /
+          paths:
+            - /home/circleci/project
+            - /go
 
   lint:
     executor: go
     steps:
       - attach_workspace:
-          at: project
+          at: /
       - run: task lint
 
   test:
