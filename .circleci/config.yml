@@ -12,14 +12,15 @@ commands:
 
 jobs:
   setup:
+    executor: go
     steps:
       - checkout
       - run: go install github.com/go-task/task/v3/cmd/task@latest
       - run: task install-deps
       - run: go mod download
       - persist_to_workspace:
-        root: workspace
-        path: .
+          root: .
+          paths: [.]
 
   lint:
     executor: go
@@ -34,7 +35,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - command: |
+      - run: |
           mkdir -p /tmp/test-reports
           gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
       - store_test_results:
