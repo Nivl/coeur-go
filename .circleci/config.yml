@@ -42,6 +42,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - restore-cache
       - run: task lint
 
   test:
@@ -49,6 +50,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - restore-cache
       - run: |
           mkdir -p /tmp/test-reports
           gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
