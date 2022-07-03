@@ -33,22 +33,23 @@ jobs:
           paths:
             - "/go/bin"
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths:
-            - .
+            - project
+            - go
 
   lint:
     executor: go
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/
       - run: task lint
 
   test:
     executor: go
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/
       - run: |
           mkdir -p /tmp/test-reports
           gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
