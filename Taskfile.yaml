@@ -1,0 +1,20 @@
+version: '3'
+
+tasks:
+  test:
+    cmds:
+      - go test -race -mod=readonly ./...
+
+  deps-upgrade:
+    cmds:
+      - go get -t -u ./...
+      - go mod tidy
+
+  lint:
+    cmds:
+      - golangci-lint run ./...
+
+  install-deps:
+    cmds:
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+      - go install github.com/golang/mock/mockgen@v1.6.0
