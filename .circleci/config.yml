@@ -21,8 +21,8 @@ jobs:
       - persist_to_workspace:
           root: /
           paths:
-            - /home/circleci/project
-            - /go
+            - home/circleci/project
+            - go
 
   lint:
     executor: go
