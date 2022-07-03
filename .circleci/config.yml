@@ -11,9 +11,6 @@ commands:
       - restore_cache:
           keys:
             - go-mod-v4-{{ checksum "go.sum" }}
-      - restore_cache:
-          keys:
-            - go-bin-{{ checksum "Taskfile.yaml" }}
 
 jobs:
   setup:
@@ -28,10 +25,6 @@ jobs:
           key: go-mod-v4-{{ checksum "go.sum" }}
           paths:
             - "/go/pkg/mod"
-      - save_cache:
-          key: go-bin-{{ checksum "Taskfile.yaml" }}
-          paths:
-            - "/go/bin"
       - persist_to_workspace:
           root: ~/
           paths:
