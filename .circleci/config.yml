@@ -19,16 +19,15 @@ jobs:
       - run: task install-deps
       - run: go mod download
       - persist_to_workspace:
-          root: /
+          root: .
           paths:
-            - home/circleci/project
-            - go
+            - project
 
   lint:
     executor: go
     steps:
       - attach_workspace:
-          at: /
+          at: .
       - run: task lint
 
   test:
