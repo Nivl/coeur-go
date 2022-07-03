@@ -10,7 +10,10 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - go-mod-v4-{{ checksum "go.sum" }}
+            - go-mod-v4-{{ checksum "go.sum" }}-v1
+      - restore_cache:
+          keys:
+            - go-bin-{{ checksum "Taskfile.yaml" }}-v1
 
 jobs:
   setup:
@@ -22,14 +25,17 @@ jobs:
       - run: task install-deps
       - run: go mod download
       - save_cache:
-          key: go-mod-v4-{{ checksum "go.sum" }}
+          key: go-mod-v4-{{ checksum "go.sum" }}-v1
           paths:
-            - "/go/pkg/mod"
+            - "~/go/pkg/mod"
+      - save_cache:
+          key: go-bin-{{ checksum "Taskfile.yaml" }}-v1
+          paths:
+            - "~/go/bin"
       - persist_to_workspace:
           root: ~/
           paths:
             - project
-            - go
 
   lint:
     executor: go
