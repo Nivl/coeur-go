@@ -20,13 +20,13 @@ jobs:
       - run: go mod download
       - persist_to_workspace:
           root: .
-          paths: [.]
+          paths: [project]
 
   lint:
     executor: go
     steps:
       - attach_workspace:
-          at: .
+          at: project
       - run: task lint
 
   test:
