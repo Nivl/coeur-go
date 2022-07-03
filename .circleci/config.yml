@@ -3,7 +3,7 @@ version: 2.1
 executors:
   go:
     docker:
-      - image: cimg/go
+      - image: cimg/go:1.17
 
 commands:
   install-deps:
