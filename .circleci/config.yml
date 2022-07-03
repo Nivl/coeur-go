@@ -27,14 +27,14 @@ jobs:
     executor: go
     steps:
       - attach_workspace:
-          at: .
+          at: ~/ 
       - run: task lint
 
   test:
     executor: go
     steps:
       - attach_workspace:
-          at: .
+          at: ~/
       - run: |
           mkdir -p /tmp/test-reports
           gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
