@@ -1,0 +1,48 @@
+version: 2.1
+
+executors:
+  go:
+    docker:
+      - image: circleci/golang
+
+commands:
+  install-deps:
+    steps:
+      - run: echo "Hello <<parameters.to>>"
+
+jobs:
+  setup:
+    steps:
+      - checkout
+      - run: go install github.com/go-task/task/v3/cmd/task@latest
+      - run: task install-deps
+      - run: go mod download
+      - persist_to_workspace:
+        root: workspace
+        path: .
+
+  lint:
+    executor: go
+    steps:
+      - attach_workspace:
+          at: .
+      - run: task lint
+
+
+  test:
+    executor: go
+    steps:
+      - attach_workspace:
+          at: .
+      - command: |
+          mkdir -p /tmp/test-reports
+          gotestsum --junitfile /tmp/test-reports/unit-tests.xml ./... -race
+      - store_test_results:
+          path: /tmp/test-reports
+
+workflows:
+  test-and-publish:
+    jobs:
+      - setup
+      - lint
+      - test
