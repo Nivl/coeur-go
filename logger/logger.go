@@ -22,7 +22,7 @@ type Logger interface {
 	// Error logs an error message
 	Error(ctx context.Context, msg string, extras ...map[string]interface{}) error
 
-	// Close flushes and frees interface{} resource allocated by the logger.
+	// Close flushes and frees any resource allocated by the logger.
 	// The logger may not be reusable after being closed
 	Close() error
 
