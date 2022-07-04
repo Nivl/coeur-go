@@ -3,8 +3,10 @@ module github.com/Nivl/coeur
 go 1.17
 
 require (
+	github.com/getsentry/sentry-go v0.13.0
 	github.com/golang/mock v1.6.0
 	github.com/google/uuid v1.3.0
+	github.com/rollbar/rollbar-go v1.4.4
 	github.com/stretchr/testify v1.8.0
 )
 
