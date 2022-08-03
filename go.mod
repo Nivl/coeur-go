@@ -1,6 +1,6 @@
 module github.com/Nivl/coeur
 
-go 1.17
+go 1.19
 
 require (
 	github.com/DataDog/datadog-go/v5 v5.1.1
